@@ -1,0 +1,155 @@
+
+        /* =============================================== */
+        /* COMBOBOX (Select) - PREMIUM STYLE               */
+        /* =============================================== */
+        QComboBox {
+            background-color: #3f3f46;
+            border: 1px solid #3f3f46;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        QComboBox:hover {
+            background-color: #3f3f46; /* Mantener color base */
+            border: 1px solid #ffffff;
+        }
+
+        QComboBox:on { /* state when popup is open */
+            border: 1px solid #ffffff;
+            background-color: #3f3f46;
+        }
+
+        QComboBox::drop-down {
+            subcontrol-origin: padding;
+            subcontrol-position: top right;
+            width: 30px;
+            border-left-width: 0px;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        /* Flecha usando icono SVG */
+        QComboBox::down-arrow {
+            image: url(assets/icons/chevron_down.svg);
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        QComboBox::down-arrow:on {
+            /* Opcional: Rotar o cambiar color si tuviéramos otro SVG */
+            image: url(assets/icons/chevron_up.svg);
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+
+        }
+
+        /* La lista desplegable */
+        QComboBox QAbstractItemView {
+            background-color: #3f3f46;
+            border: 1px solid #3f3f46;
+            selection-background-color: rgba(255, 255, 255, 0.1);
+            selection-color: #ffffff;
+            outline: none;
+            color: #ffffff;
+            border-radius: 6px;
+            padding: 4px;
+            margin-top: 2px; /* Pequeña separación */
+        }
+
+        QComboBox QAbstractItemView::item {
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin: 2px;
+        }
+
+        QComboBox QAbstractItemView::item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        QComboBox QAbstractItemView::item:selected {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+
+        /* =============================================== */
+        /* COMBOBOX (Select) - PREMIUM STYLE               */
+        /* =============================================== */
+        QComboBox {
+            background-color: #3f3f46;
+            border: 1px solid #3f3f46;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        QComboBox:hover {
+            background-color: #3f3f46; /* Mantener color base */
+            border: 1px solid #ffffff;
+        }
+
+        QComboBox:on { /* state when popup is open */
+            border: 1px solid #ffffff;
+            background-color: #3f3f46;
+        }
+
+        QComboBox::drop-down {
+            subcontrol-origin: padding;
+            subcontrol-position: top right;
+            width: 30px;
+            border-left-width: 0px;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        /* Flecha usando icono SVG */
+        QComboBox::down-arrow {
+            image: url(assets/icons/chevron_down.svg);
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        QComboBox::down-arrow:on {
+            /* Opcional: Rotar o cambiar color si tuviéramos otro SVG */
+            image: url(assets/icons/chevron_up.svg);
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+
+        }
+
+        /* La lista desplegable */
+        QComboBox QAbstractItemView {
+            background-color: #3f3f46;
+            border: 1px solid #3f3f46;
+            selection-background-color: rgba(255, 255, 255, 0.1);
+            selection-color: #ffffff;
+            outline: none;
+            color: #ffffff;
+            border-radius: 6px;
+            padding: 4px;
+            margin-top: 2px; /* Pequeña separación */
+        }
+
+        QComboBox QAbstractItemView::item {
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin: 2px;
+        }
+
+        QComboBox QAbstractItemView::item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        QComboBox QAbstractItemView::item:selected {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-weight: 600;
+        }

@@ -1,0 +1,339 @@
+/* =============================================== */
+/* GLOBAL                                          */
+/* =============================================== */
+QMainWindow, QWidget#mainContainer {
+    background-color: @bg_root;
+    color: @text_primary;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+/* =============================================== */
+/* MENU (Sidebar)                                  */
+/* =============================================== */
+
+/* Container Principal */
+#sidebarContainer{
+    background-color: @bg_surface;
+    border-right: 1px solid @border_dim;
+}
+
+/* Scroll Area Container */
+#Sidebar_ScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+/* Scroll Content Widget */
+#ContentWidget {
+    background-color: transparent;
+}
+
+/* Botones Generales del Sidebar (Home, Menu, Config) */
+#BtnSidebar{
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 21px;
+  border: none;
+  background-color: transparent;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  color: @text_secondary;
+}
+#BtnSidebar:hover{
+  background-color: @action_hover;
+  color: @text_primary;
+}
+#BtnSidebar:pressed{
+  background-color: @action_pressed;
+  color: @text_primary;
+}
+/* Botón Seleccionado (Default / Expandido) */
+#BtnSidebar:checked {
+    background-color: @action_selected;
+    color: @accent_primary;
+    border-left: 3px solid @accent_primary;
+    /* font-weight: bold; REMOVED to prevent text jitter */
+}
+
+/* Botón Seleccionado (Colapsado) */
+#sidebarContainer[collapsed="true"] #BtnSidebar:checked {
+    border: 3px solid @border_highlight; /* Borde completo */
+}
+
+
+/* Botones Internos (Lista de opciones) */
+#ContentWidget QPushButton {
+    text-align: left;
+    padding-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: @text_secondary;
+    height: 35px;
+}
+#ContentWidget QPushButton:hover {
+    background-color: @action_hover;
+    /* color: @text_primary; */
+}
+#ContentWidget QPushButton:pressed {
+    background-color: @action_pressed;
+    color: @text_primary;
+}
+
+/* Barra de Desplazamiento Vertical */
+QScrollBar:vertical {
+    border: none;
+    background: rgba(255, 255, 255, 0.03);
+    width: 5px;
+    margin: 0px 0px 0px 0px;
+    border-radius: 5px;
+}
+QScrollBar::handle:vertical {
+    background: @scroll_thumb;
+    min-height: 20px;
+    border-radius: 5px;
+}
+QScrollBar::handle:vertical:hover {
+    background: @scroll_thumb;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+/* Barra de Desplazamiento Horizontal */
+QScrollBar:horizontal {
+    border: none;
+    background: rgba(255, 255, 255, 0.03);
+    height: 5px;
+    margin: 0px 0px 0px 0px;
+    border-radius: 2px;
+}
+QScrollBar::handle:horizontal {
+    background: @scroll_thumb;
+    min-width: 20px;
+    border-radius: 2px;
+}
+QScrollBar::handle:horizontal:hover {
+    background: @scroll_thumb;
+}
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+
+/* =============================================== */
+/* CANVAS                                          */
+/* =============================================== */
+
+/* Marco Principal del Canvas */
+#QCanvas{
+    background-color: @bg_root;
+}
+
+/* Contenido Interno */
+#content{
+    background-color: @bg_element;
+}
+/* =============================================== */
+/* HEADER                                          */
+/* =============================================== */
+#HeaderFrame {
+    background-color: @bg_root;
+    border-bottom: 1px solid @border_dim;
+}
+#HeaderFrame QLineEdit {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 4px 10px;
+    color: @text_primary;
+    font-size: 13px;
+}
+#HeaderFrame QLineEdit:focus {
+    border: 1px solid @accent_primary;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+#HeaderFrame QPushButton {
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+}
+#HeaderFrame QPushButton:hover {
+    background-color: @action_hover;
+}
+
+/* =============================================== */
+/* CONFIGURACION                                   */
+/* =============================================== */
+#ConfigWindow {
+    background-color: @bg_root;
+    color: @text_primary;
+}
+
+/* Sidebar de Configuración */
+#ConfigSidebar {
+    background-color: @bg_dim;
+    border: none;
+    outline: none;
+    padding: 10px; /* Mas padding global */
+}
+#ConfigSidebar::item {
+    height: 40px;
+    padding-left: 15px; /* Mas espacio texto */
+    color: @text_secondary;
+    border-radius: 6px; /* Bordes redondeados (Pill style) */
+    margin-bottom: 4px; /* Separación entre items */
+    border: none; /* Quitamos bordes default */
+}
+#ConfigSidebar::item:selected {
+    background-color: @action_selected;
+    color: @accent_primary; /* Texto del color de acento */
+    font-weight: bold; /* Destacar selección */
+    /* Quitamos el border-left antiguo para usar estilo pill completo */
+}
+#ConfigSidebar::item:hover:!selected {
+    background-color: @action_hover;
+    color: @text_primary;
+}
+
+/* Títulos en Configuración */
+#ConfigTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: @text_primary;
+    margin-bottom: 20px;
+}
+
+/* =============================================== */
+/* DIALOGS & MODALS                                */
+/* =============================================== */
+
+QDialog {
+    background-color: @bg_root;
+    color: @text_primary;
+}
+
+QDialog QLabel {
+    color: @text_primary;
+    font-size: 14px;
+}
+
+/* Títulos específicos */
+#ConfigTitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: @text_primary;
+}
+
+
+
+/* Botones de Acción (Guardar/Cerrar) */
+#BtnAction {
+    background-color: @accent_primary;
+    color: #ffffff; /* Contrast text usually white on accent */
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    font-weight: bold;
+}
+
+
+
+
+
+
+/* =============================================== */
+/* CARDS (StatCard / HomeCard)                     */
+/* =============================================== */
+
+/* Clase genérica para tarjetas */
+StatCard, #ContentCard {
+    background-color: @bg_surface;
+    border: 1px solid @border_dim;
+    border-radius: 12px;
+}
+StatCard:hover, #ContentCard:hover {
+    border: 1px solid @border_highlight;
+    /* Opcional: small shadow or highlight */
+}
+
+/* Títulos en tarjetas */
+StatCard QLabel, #ContentCard QLabel {
+    background-color: transparent;
+    border: none;
+}
+
+/* =============================================== */
+/* BOTONES GLOBALES (Home, etc)                    */
+/* =============================================== */
+#BtnPrimary {
+    background-color: @accent_primary;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: none;
+}
+#BtnPrimary:hover {
+    background-color: @action_selected;
+    border: 1px solid @accent_primary;
+}
+
+#BtnOutline {
+    background-color: transparent;
+    color: @text_primary;
+    font-size: 15px;
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: 1px solid @border_dim;
+}
+#BtnOutline:hover {
+    background-color: @action_hover;
+    border-color: @text_secondary;
+}
+
+/* Forzar color de texto en Canvas y Header */
+#QCanvas QLabel, #HeaderFrame QLabel {
+    color: @text_primary;
+}
+
+/* =============================================== */
+/* TABLES (QTableWidget)                           */
+/* =============================================== */
+QTableWidget {
+    background-color: @bg_surface;
+    border: 1px solid @border_dim;
+    border-radius: 8px;
+    gridline-color: @border_dim;
+    font-size: 16px;
+    color: @text_primary;
+}
+/* QTableWidget::item {
+    padding: 10px;
+} */
+QTableWidget::item:selected {
+    background-color: @action_selected;
+    color: @accent_primary;
+}
+QHeaderView::section {
+    background-color: @bg_element;
+    color: @text_primary;
+    padding: 6px;
+    border: none;
+    font-weight: bold;
+    border-bottom: 2px solid @border_dim;
+}
+
+
+
