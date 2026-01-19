@@ -24,7 +24,7 @@ from PySide6.QtGui import (  # pylint: disable=no-name-in-module, unused-import 
     QIcon,
 )
 
-from pages.Home_page import HomePage
+
 
 
 class Canvas(QFrame):

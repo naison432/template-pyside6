@@ -8,9 +8,10 @@ from main_ui import Interface
 from styles.themes import ThemeManager, ThemeType
 from components.Sidebar import MenuItemProp
 
-# Importar páginas
-from pages.Home_page import HomePage
-from pages.Demo_page import DemoPage
+# Importar páginas (Nueva estructura)
+from pages.main.Home_page import HomePage
+from pages.main.Demo_page import DemoPage
+from pages.config.General_config import GeneralConfigPage
 
 # =============================================================================
 # CONTROLADOR PRINCIPAL
@@ -35,7 +36,9 @@ class Ventana(Interface):
         self.navigate_to(self.demoPage)
 
         # 3. Registrar Configuración
-        self.generalConfigPage = self.register_config("General", QWidget())
+        self.generalConfigPage = self.register_config(
+            "General", GeneralConfigPage()
+        )
 
         # Opcional: Probar navegación a config
         # self.navigate_to_config(self.generalConfigPage)

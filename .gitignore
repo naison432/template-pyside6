@@ -30,3 +30,6 @@ ENV/
 .vscode/
 .idea/
 *.swp
+
+# Secrets
+.env
