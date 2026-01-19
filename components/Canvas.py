@@ -27,9 +27,6 @@ from PySide6.QtGui import (  # pylint: disable=no-name-in-module, unused-import 
 from pages.Home_page import HomePage
 
 
-
-
-
 class Canvas(QFrame):
     """es el marco de trabajo y hereda de QFrame ."""
 
@@ -53,8 +50,8 @@ class Canvas(QFrame):
         self.scroll_area.setStyleSheet("background: transparent;")
 
         # 3. StackedWidget (Pila de páginas)
-        self.stack = QStackedWidget() # Necesita importar QStackedWidget
-        
+        self.stack = QStackedWidget()  # Necesita importar QStackedWidget
+
         # 4. Asignar Stack al ScrollArea
         self.scroll_area.setWidget(self.stack)
 

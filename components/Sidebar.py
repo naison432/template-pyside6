@@ -5,6 +5,9 @@ Maneja la lógica de navegación, animación de colapso/expansión y layout de b
 
 import os
 
+from dataclasses import dataclass
+from typing import Literal
+
 # 1. QtWidgets
 from PySide6.QtWidgets import (  # pylint: disable=no-name-in-module, unused-import # noqa
     QFrame,
@@ -33,6 +36,17 @@ from PySide6.QtGui import (
 )
 
 
+@dataclass
+class MenuItemProp:
+    """Estructura de datos para ítems del menú"""
+
+    text: str  # Texto visible
+    icon: str  # Nombre del archivo de icono
+    page_class: QWidget  # instancia
+    section: Literal["scroll", "fixed"] = (
+        "scroll"  # valores opcionales: 'fixed' o 'scroll'
+    )
+
 
 # Helpers
 def get_icon_path(filename: str) -> str:
@@ -47,10 +61,10 @@ class SidebarButton(QPushButton):
     Clase base para botones del sidebar con estilos comunes
     """
 
-    def __init__(self, icon_path: str, text: str = ""):
+    def __init__(self, icon_svg: str, text: str = ""):
         super().__init__()
         self.setObjectName("BtnSidebar")
-        self.icon_path = icon_path
+        self.icon_path = get_icon_path(icon_svg)
 
         # Propiedades Visuales
         self.setIconSize(QSize(24, 24))
@@ -69,7 +83,7 @@ class MenuButton(SidebarButton):
     """Botón de hamburguesa para colapsar/expandir el menú."""
 
     def __init__(self):
-        super().__init__(get_icon_path("menu_open.svg"))
+        super().__init__(icon_svg="menu_open.svg")
         self.setFixedWidth(44)
         self.setCheckable(False)  # El botón de menú no debe quedarse presionado
 
@@ -117,7 +131,7 @@ class ConfigButton(SidebarButton):
     """Botón de configuración situado en la parte inferior."""
 
     def __init__(self):
-        super().__init__(get_icon_path("settings.svg"), "Configuration")
+        super().__init__("settings.svg", "Configuration")
         self.setCheckable(
             False
         )  # Configuración es un modal, no una opción de navegación
@@ -178,49 +192,51 @@ class Sidebar(QFrame):
         self.btnConfig.clicked.connect(self.action_config.emit)  # Conectar señal
         self.mainLayout.addWidget(self.btnConfig)
 
-    def setup_menu(self, fixed_items: list, scroll_items: list):
+    def add_menu_item(self, item: MenuItemProp):
         """
-        Recibe las props del menú y construye los botones.
+        Agrega un botón al menú (Fixed o Scroll) y conecta la navegación.
         """
-        # Limpiar layouts si fuera necesario (aquí asumimos carga inicial)
+        # 1. Crear botón
+        btn = SidebarButton(item.icon, item.text)
+        # GUARDAR REFERENCIA PARA PROGRAMMATIC SELECTION
+        btn._page_instance = item.page_class
+        self.btnGroup.addButton(btn)
+        
+        # Selección visual por defecto (si es el primero)
+        if len(self.btnGroup.buttons()) == 1:
+            btn.setChecked(True)
 
-        # 1. Botones Fijos
-        for item in fixed_items:
-            btn = SidebarButton(get_icon_path(item.icon), item.text)
+        # 2. Agregar al layout correspondiente
+        if item.section == "fixed":
             self.fixedLayout.addWidget(btn)
-            self.btnGroup.addButton(btn)
-            # Conectar señal: usamos lambda default arg para capturar el valor actual del loop
-            btn.clicked.connect(
-                lambda _=False, route=item.route: self.action_navigate.emit(route)
-            )
+        else:
+            # Para scroll, acceder al layout interno
+            scroll_layout = self.scrollArea.widgetContent.widgetLayout
+            # Insertar antes del stretch (que está al final)
+            # count() - 1 asumiendo que el último es el spacer/stretch
+            # Si no hay stretch, addWidget funciona igual.
+            # Verificamos si ya hay items para insertar antes del stretch
+            count = scroll_layout.count()
+            if count > 0:
+                # Insertar en penúltima posición (antes del stretch)
+                scroll_layout.insertWidget(count - 1, btn)
+            else:
+                scroll_layout.addWidget(btn)
 
-        # 2. Botones Scroll
-        # Accedemos al layout del widget interno del scroll area
-        scroll_layout = self.scrollArea.widgetContent.widgetLayout
+        # 3. Conexión de señal
+        # Emitimos la instancia de la página directamente
+        btn.clicked.connect(lambda: self.action_navigate.emit(item.page_class))
 
-        # Limpiar botones demo existentes en scroll area (si los hay)
-        # (Opcional, en este caso sabemos que SidebarContentWidget crea uno hardcoded, mejor quitarlo ahí o limpiar aquí)
-        while scroll_layout.count():
-            child = scroll_layout.takeAt(0)
-            if child.widget():
-                child.widget().deleteLater()
+    def select_by_page_instance(self, page_instance):
+        """
+        Busca el botón asociado a esta instancia y lo marca como checked.
+        """
+        for btn in self.btnGroup.buttons():
+            if getattr(btn, "_page_instance", None) == page_instance:
+                btn.setChecked(True)
+                return
 
-        for item in scroll_items:
-            btn = SidebarButton(get_icon_path(item.icon), item.text)
-            scroll_layout.addWidget(btn)
-            self.btnGroup.addButton(btn)
-            btn.clicked.connect(
-                lambda _=False, route=item.route: self.action_navigate.emit(route)
-            )
 
-        scroll_layout.addStretch()
-
-        # Seleccionar el primero por defecto
-        if self.btnGroup.buttons():
-            self.btnGroup.buttons()[0].setChecked(True)
-            # Emitir señal inicial no es automático con setChecked,
-            # pero el usuario pide selección visual default.
-            # Si queremos navegar al inicio, lo haremos en main.
 
     def handleCollapse(self):
         """
@@ -273,4 +289,3 @@ class Sidebar(QFrame):
 
         self.animation.finished.connect(onFinished)
         self.animation.start()
-
